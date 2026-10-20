@@ -1,0 +1,85 @@
+{
+  "passed": true,
+  "python": "3.12.13",
+  "versions": {
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "pandas": "3.0.6",
+    "matplotlib": "3.11.2",
+    "jax": "0.11.2",
+    "jaxlib": "0.11.2",
+    "nbformat": "5.11.1",
+    "nbclient": "0.11.0",
+    "ipykernel": "7.4.0",
+    "markdown": "3.11",
+    "latex2mathml": "3.81.1",
+    "Pygments": "2.21.0"
+  },
+  "estimator_sha256": "368100c9c04aa2dc16ae9caf5b02a3c740825bdfb79a4a6d575480e79506f611",
+  "smoke_test_is_external_to_notebook": true,
+  "smoke_test": [
+    {
+      "family": "unidimensional",
+      "interface_passed": true,
+      "iterations": 12,
+      "converged": true,
+      "stopping_reason": "converged",
+      "wrapper_update_max_difference": 0.0,
+      "elapsed_seconds": 1.589
+    },
+    {
+      "family": "bifactor",
+      "interface_passed": true,
+      "iterations": 12,
+      "converged": false,
+      "stopping_reason": "iteration_cap",
+      "wrapper_update_max_difference": 0.0,
+      "elapsed_seconds": 0.959
+    },
+    {
+      "family": "testlet",
+      "interface_passed": true,
+      "iterations": 12,
+      "converged": false,
+      "stopping_reason": "iteration_cap",
+      "wrapper_update_max_difference": 0.0,
+      "elapsed_seconds": 1.075,
+      "higher_order_predictor_max_difference": 1.7763568394002505e-15
+    }
+  ],
+  "saved_results": {
+    "sample_counts_passed": true,
+    "percentages_and_ranks_passed": true,
+    "all_48_fits_have_20_starts": true,
+    "saved_masks_passed": true,
+    "predictive_means_passed": true,
+    "correlations": {
+      "unidimensional": {
+        "pearson": 0.9705900935890841,
+        "spearman": 0.9679724363729487
+      },
+      "bifactor": {
+        "pearson": 0.8990033881254142,
+        "spearman": 0.7689086215118281
+      },
+      "testlet": {
+        "pearson": 0.9627338115853694,
+        "spearman": 0.9805371078555194
+      }
+    }
+  },
+  "code_cells": 13,
+  "all_code_cells_executed": true,
+  "rendered_figures": 2,
+  "notebook_sha256": "070310390f78e2b181333fd180e769cd03349753458b5c42c847a97af0934c2c",
+  "scope": "Short synthetic fits for three families, unchanged-source and wrapper checks, saved-result consistency, and complete notebook execution. No rerun of the manuscript's 20-start full-data or predictive fits.",
+  "html_checks": {
+    "native_mathml_expressions": 47,
+    "embedded_figures": 2,
+    "single_evaluation_note": true,
+    "standalone_no_scripts": true,
+    "machine_specific_paths_absent": true
+  },
+  "html_sha256": "f8c2dafc9c1962e69743967c1090bf5ca4b4225a58029ff2a151148800d82b5d",
+  "editorial_update": "Removed pre-publication status wording and added the GitHub repository link; code cells and executed outputs unchanged."
+}

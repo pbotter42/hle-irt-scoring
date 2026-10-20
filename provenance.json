@@ -1,0 +1,9 @@
+{
+  "source_release": "https://github.com/matrix-mayank/hle-psychometrics",
+  "source_commit": "8179a49ce23fd11d7448a8d935dbc0803f24cb76",
+  "estimator_sha256": "368100c9c04aa2dc16ae9caf5b02a3c740825bdfb79a4a6d575480e79506f611",
+  "code_copied_without_changes": true,
+  "question_texts_included": false,
+  "saved_results_are_from_the_manuscript": true,
+  "github_repository": "https://github.com/pbotter42/hle-irt-scoring"
+}

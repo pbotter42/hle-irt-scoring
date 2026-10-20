@@ -1,0 +1,4 @@
+family,label,spearman_general,kendall_general,spearman_fitted,max_rank_change,median_rank_change,rank_changes,top_model,points,converged,iterations,max_abs_score,max_tau
+unidimensional,Unidimensional,0.9679724363729487,0.869138451881654,0.9679724363729487,5.0,1.5,21,claude-opus-4-7,15,True,12,2.207342712487969,
+bifactor,Bifactor,0.7689086215118281,0.607409258985474,0.9903917521555747,14.0,3.0,23,claude-opus-4-7,11,True,12,2.9065306034337777,2.687764539336756
+testlet,Higher-order,0.9805371078555194,0.9135830318074204,0.9731461246304779,4.0,0.5,17,claude-opus-4-7,15,True,12,1.4731524937643912,2.2167209352427344
