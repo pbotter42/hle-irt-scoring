@@ -47,3 +47,6 @@ Contact Preston Botter at pdbotter@gmail.com for research discussion.
 Reported ECV now excludes entire items with negative posterior-mean slopes.
 There are 484 retained items; the 513-item fitted model is unchanged. See the
 notebook footnote for the inclusion rule and full-item comparison.
+
+Published follow-up article:
+https://benchmarkanatomy.substack.com/p/humanitys-last-exam-has-a-scoring

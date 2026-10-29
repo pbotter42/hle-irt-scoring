@@ -9,6 +9,8 @@ It imports Preston Botter's estimator unchanged. It does not refit the full HLE 
 
 ## ECV follow-up
 
+Read the [published Substack article](https://benchmarkanatomy.substack.com/p/humanitys-last-exam-has-a-scoring).
+
 The [ECV article and materials](ecv_followup/article.md) extend the original scoring analysis. Open the [executed ECV notebook](ecv_followup/notebook/hle_ecv_walkthrough.ipynb) or its [HTML reading copy](ecv_followup/notebook/notebook.html). It reproduces item and subject ECV from the saved full-data bifactor fit, converts slopes to standardized loadings, and includes CFA/IRT-style diagrams.
 
 The model fit uses 29 LLMs and 513 questions. Reported ECV diagnostics retain 484 questions after the stated post-estimation sign exclusion. Overall general ECV is 33.79%; the specific loading exceeds the general loading for 304 of those 484 questions. These are conditional loading-based diagnostics under an orthogonal, unit-variance reference. The fixed-score estimator does not impose empirical score orthogonality. Full methodology, scope, and exclusions are documented in the article and notebook.
