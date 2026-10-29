@@ -1,0 +1,141 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Humanity’s Last Exam has a scoring problem · First draft</title><style>
+:root{color-scheme:light}*{box-sizing:border-box}
+body{margin:0;background:#fbfaf7;color:#24343b;font:21px/1.65 Georgia,serif}
+main{max-width:850px;margin:auto;padding:48px 28px 70px}
+h1{font-size:clamp(34px,5vw,53px);line-height:1.08;letter-spacing:-1px}
+h2{font:600 25px/1.3 system-ui,sans-serif;margin-top:46px}
+a{color:#076d78;text-underline-offset:3px}p{margin:1.1em 0}
+figure{margin:36px 0}img{display:block;max-width:100%;height:auto}
+figcaption{font:14px/1.55 system-ui,sans-serif;color:#53636e;margin-top:14px}
+table{border-collapse:collapse;width:100%;font:14px/1.55 system-ui,sans-serif}
+td,th{padding:10px 8px;border-bottom:1px solid #ced7d7;text-align:right}
+td:first-child,th:first-child{text-align:left}th{background:#e9f0ee}
+nav,footer{font:14px/1.6 system-ui,sans-serif;color:#52636b}
+nav{border-top:4px solid #267e88;padding-top:16px}footer{margin-top:40px;border-top:1px solid #ced7d7;padding-top:18px}
+.footnote{font:15px/1.6 system-ui,sans-serif;color:#53636e;margin-top:40px}.footnote li{margin-bottom:18px}sup{font-size:.65em;line-height:0}.footnote-backref{font-size:12px}
+hr{border:0;border-top:1px solid #ced7d7;margin:40px 0}
+@media(max-width:600px){body{font-size:18px}main{padding:28px 17px}table{font-size:11px}td,th{padding:8px 4px}}
+</style></head><body><main><nav>BENCHMARK ANATOMY · FIRST DRAFT · <a href="notebook/notebook.html">Python companion</a></nav><h1>Humanity’s Last Exam Has a Scoring Problem. Percent Correct Hides It.</h1>
+<p><em>First draft · Preston Botter · October 29, 2026</em></p>
+<p><em>A follow-up on what happens when an AI benchmark’s single score meets a unidimensionality check.</em></p>
+<p>Llama did not change its answers. It fell 14 places anyway.</p>
+<p>In <a href="https://benchmarkanatomy.substack.com/p/i-re-scored-humanitys-last-exam-llama">my previous article</a>, I rescored Humanity’s Last Exam using three item response theory models. The analysis uses a 513-question, text-only, multiple-choice subset of the exam. Llama 3.1 8B Instruct ranked 15th by percent correct and 29th on the bifactor model’s general score. Claude Haiku 4.5 moved the other way, from 26th to 14th.</p>
+<p>Those movements raised a question: <strong>how much of this test’s modeled common signal actually belongs to the general factor?</strong></p>
+<p>I have now calculated explained common variance, or ECV, from that fitted bifactor model. Under the conventional factor-scaling assumptions described below, the overall value is <strong>33.79%</strong>, calculated over 484 retained questions.<sup id="fnref:ecv-items"><a class="footnote-ref" href="#fn:ecv-items">1</a></sup> That looks awful beside the values commonly discussed as reassuring evidence for a predominantly single-dimensional measure. It is also a conditional diagnostic from a research implementation, requiring more care than a headline number suggests.</p>
+<p>My reading is that Humanity’s Last Exam has a scoring-model problem worth taking seriously: its percentage is being asked to support an interpretation of general capability that needs considerably more evidence.</p>
+<p>Percent correct gives each observed answer one vote. A correct engineering answer contributes the same amount as a correct philosophy answer. It makes no distinction between an answer reflecting broad capability and one reflecting an additional subject-specific strength. Subjects with more questions also contribute more votes.</p>
+<p>That arithmetic is perfectly legitimate for describing success on a specified question set. Percent correct does not, by itself, mathematically assume unidimensionality. The stronger assumption enters when we interpret the total as a measure of one underlying general capability. At that point, treating those contributions as interchangeable becomes a substantive measurement choice.</p>
+<p>IRT makes some of those choices explicit. It relates the probability of a correct answer to capability and question characteristics, including difficulty and discrimination. A unidimensional model uses one capability coordinate. A bifactor model gives each question a general-factor contribution and a contribution from its assigned group of questions (<a href="https://doi.org/10.1007/978-0-387-89976-3">Reckase, 2009</a>).</p>
+<p>In a conventional bifactor model, the general and secondary factors are mutually orthogonal. The secondary factor represents something left over after the general factor is accounted for. It is not a complete subject-ability score. That distinction matters: answering more math questions correctly need not translate entirely into a higher general coordinate.</p>
+<figure><img alt="A CFA/IRT-style bifactor path diagram shows the general factor connected to every item and eight subject residual factors connected to their own items. All 513 questions are represented by first and last items with ellipses." src="figures/04_bifactor_paths.png" /><figcaption>Figure 1. The original fitted 513-item structure. Each question receives two common-factor contributions: a general path (teal) and a subject residual path (brown). The eight secondary factors are shown explicitly. The conventional factors are mutually orthogonal; this implementation does not force empirical score orthogonality. Item intercepts and errors are omitted.</figcaption></figure>
+<p>The earlier results show why “just use IRT” misses the issue. Percent correct and the unidimensional IRT scores were strongly correlated: <strong>Pearson’s r = .9706</strong>, with a <strong>rank correlation of .9680</strong>. The bifactor general scores were less closely aligned: <strong>r = .8990</strong>, with a <strong>rank correlation of .7689</strong>. These are different statistics; the roughly .77 value concerns ordering, not the linear correlation between scores.</p>
+<figure><img alt="Rank correlations with percent correct: .9680 for unidimensional IRT and .7689 for bifactor general scoring. Llama moves from rank 15 to 29 and Haiku from 26 to 14." src="figures/01_rank_comparison.png" /><figcaption>Figure 2. Changing the dimensional structure changed rankings much more than moving from percent correct to a one-dimensional IRT model. All results concern the same 29-model cohort.</figcaption></figure>
+<p>ECV provides a <strong>unidimensionality check</strong>: under a conventional bifactor model, how dominant is the general factor relative to the secondary factors?</p>
+<p>Imagine dividing each item’s modeled common signal into general and specific contributions. ECV adds up the squared general-factor loadings and divides by the sum of squared general and specific loadings. Near 1, the general factor dominates. Lower values indicate a larger role for the secondary factors. This concerns common variance under the model; it is not the percentage of answers explained, a reliability coefficient, or the fraction of intelligence captured.</p>
+<p>Rodriguez, Reise, and Haviland (<a href="https://doi.org/10.1037/met0000045">2016</a>) explain why these indices add information beyond declaring that a bifactor model fits best. We need to examine what a total score represents and how well its intended interpretation is supported.</p>
+<p>The path diagram makes the calculation concrete. Each arrow carries a loading describing the relationship between a factor and the question’s response. Square the two common-factor loadings to compare their contributions. Item error stays outside the ECV denominator because the index concerns common variance. To move from one question to a subject or the full test, sum those squared loadings before taking the ratio.</p>
+<figure><img alt="An actual math item is drawn as a response rectangle with paths from the general and math residual factors and an item-error arrow. The squared general and specific loadings form its item ECV ratio." src="figures/05_ecv_path.png" /><figcaption>Figure 3. Follow one item from its two factor paths into the ECV ratio. The example is the math item closest to its subject’s median IECV. The displayed loadings use the same orthogonal, unit-variance reference as the reported diagnostics.</figcaption></figure>
+<p>For this follow-up, I used the selected full-data fit from the original 20-start search: <strong>29 LLMs, 513 questions, and 14,760 observed responses</strong>. I converted the fitted item slopes into standardized factor loadings.<sup id="fnref:loadings"><a class="footnote-ref" href="#fn:loadings">2</a></sup> The fit uses my transposed EM algorithm (<a href="https://doi.org/10.1080/15366367.2026.2720515">Botter, 2026</a>). The companion notebook shows the conversion and calculations.</p>
+<p>The overall diagnostic for the 484 retained items is <strong>.3379</strong>. The complementary specific-factor share is <strong>.6621</strong>, under that reference convention. Within subjects, the balance differs substantially:</p>
+<table>
+<thead>
+<tr>
+<th>Subject</th>
+<th style="text-align: right;">Retained questions</th>
+<th style="text-align: right;">General ECV</th>
+<th style="text-align: right;">Specific ECV</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Computer Science/AI</td>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">83.19%</td>
+<td style="text-align: right;">16.81%</td>
+</tr>
+<tr>
+<td>Biology/Medicine</td>
+<td style="text-align: right;">134</td>
+<td style="text-align: right;">57.79%</td>
+<td style="text-align: right;">42.21%</td>
+</tr>
+<tr>
+<td>Humanities/Social Science</td>
+<td style="text-align: right;">79</td>
+<td style="text-align: right;">43.43%</td>
+<td style="text-align: right;">56.57%</td>
+</tr>
+<tr>
+<td>Chemistry</td>
+<td style="text-align: right;">26</td>
+<td style="text-align: right;">26.01%</td>
+<td style="text-align: right;">73.99%</td>
+</tr>
+<tr>
+<td>Other</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">18.80%</td>
+<td style="text-align: right;">81.20%</td>
+</tr>
+<tr>
+<td>Physics</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">18.47%</td>
+<td style="text-align: right;">81.53%</td>
+</tr>
+<tr>
+<td>Math</td>
+<td style="text-align: right;">89</td>
+<td style="text-align: right;">16.32%</td>
+<td style="text-align: right;">83.68%</td>
+</tr>
+<tr>
+<td>Engineering</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">13.12%</td>
+<td style="text-align: right;">86.88%</td>
+</tr>
+</tbody>
+</table>
+<p>These are ratios calculated within each subject using the retained items. They are neither subject percentages nor an equal-weight decomposition of the overall ECV.</p>
+<figure><img alt="Within-subject ECV ranges from 13.12% general in Engineering to 83.19% in Computer Science/AI; overall general ECV is 33.79%." src="figures/02_subtest_ecv.png" /><figcaption>Figure 4. General and specific shares of standardized common loading strength, under the stated orthogonal, unit-variance reference. These are conditional diagnostics, not observed-response variance decompositions.</figcaption></figure>
+<p>At item level, IECV asks the same question one question at a time. <strong>For 304 of the 484 retained questions (62.8%), the subject residual loading is larger than the general loading.</strong> Most questions therefore lean more strongly toward their subject’s specific component than toward the general component in this fitted decomposition.<sup id="fnref:coordinates"><a class="footnote-ref" href="#fn:coordinates">5</a></sup></p>
+<p>The median item ECV is <strong>28.35%</strong>. Only <strong>77 of 484 items</strong> exceed .80, shown here as a descriptive reference rather than an item-selection rule.</p>
+<figure><img alt="Distribution of the 484 retained item IECVs, with median 28.35% and 77 items above .80." src="figures/03_item_ecv.png" /><figcaption>Figure 5. Items differ considerably in the balance between general and specific loading strength. A high IECV alone does not establish a good item or valid content coverage.</figcaption></figure>
+<p>How bad is .34? Andersson and Luo (<a href="https://doi.org/10.1177/01466216221084215">2022</a>) describe .70 to .80 as values suggested in the literature for sufficient unidimensionality. On that familiar scale, .34 is a poor-looking result for a supposedly dominant general factor.<sup id="fnref:uncertainty"><a class="footnote-ref" href="#fn:uncertainty">3</a></sup><sup id="fnref:puc"><a class="footnote-ref" href="#fn:puc">4</a></sup></p>
+<p><strong>For most retained questions, the general path is the weaker path. That is the problem a single percentage conceals.</strong></p>
+<p>The orthogonal factors in a conventional bifactor model represent subject-related contributions beyond the general factor. A large math residual loading does not mean a question measures general capability especially well. It means the question has a stronger connection to the additional math component. Those are different things to reward with a score advertised as “overall ability.”</p>
+<p>Percent correct puts both into the same bucket. It counts the successful answer without distinguishing its general and specific contributions. If a model excels on the subjects that supply more questions, that particular strength gets more votes in the total. The leaderboard can then reward the test’s subject mixture while readers interpret the result as a broader capability ranking.</p>
+<p>This explains why changing the dimensional structure matters more here than replacing percent correct with unidimensional IRT. One score still asks a single coordinate to summarize the combined performance. The bifactor model gives subject residuals somewhere else to go, and the general ranking changes substantially.</p>
+<p><strong>A harder test does not automatically produce a clearer measure.</strong> Difficult questions can still pull in different directions. Here, the loading pattern gives us a concrete reason to question how much the percentage tells us about a shared general capability.</p>
+<p>I would report subject profiles alongside the total and show whether the general ranking survives plausible scoring models. Equal-weighting subjects changes their influence, but it does not separate general and specific contributions. That separation needs to be examined directly.</p>
+<p>Other broad benchmarks should face the same scrutiny. This analysis cannot establish how widespread the problem is. But the measurement question travels: <strong>when a leaderboard names one winner, is it ranking a shared capability, or rewarding a particular combination of strengths?</strong></p>
+<hr />
+<p><em>Companion materials:</em> The <a href="https://github.com/pbotter42/hle-irt-scoring/tree/main/ecv_followup">GitHub companion</a> includes the <a href="https://github.com/pbotter42/hle-irt-scoring/blob/main/ecv_followup/notebook/hle_ecv_walkthrough.ipynb">executed Python notebook</a>, original estimator, saved fit, figures, and <a href="https://github.com/pbotter42/hle-irt-scoring/tree/main/ecv_followup/notebook/results">item and subject results</a>. The notebook reproduces the ECV calculations and explains the equations and assumptions. These methods remain in development; I welcome research discussion at <a href="mailto:pdbotter@gmail.com">pdbotter@gmail.com</a>.</p>
+<h2>References</h2>
+<p>Andersson, B., &amp; Luo, H. (2022). <a href="https://doi.org/10.1177/01466216221084215">Impact of sampling variability when estimating the explained common variance</a>. <em>Applied Psychological Measurement, 46</em>(4), 338–341.</p>
+<p>Efron, B., &amp; Gong, G. (1983). <a href="https://doi.org/10.1080/00031305.1983.10483087">A leisurely look at the bootstrap, the jackknife, and cross-validation</a>. <em>The American Statistician, 37</em>(1), 36–48.</p>
+<p>Botter, P. (2026). <a href="https://doi.org/10.1080/15366367.2026.2720515">Large language model benchmarks as measurement systems: Psychometric contributions and eight open problems</a>. <em>Measurement: Interdisciplinary Research and Perspectives</em>. Advance online publication.</p>
+<p>Reckase, M. D. (2009). <a href="https://doi.org/10.1007/978-0-387-89976-3">Multidimensional item response theory</a>. Springer.</p>
+<p>Reise, S. P., Scheines, R., Widaman, K. F., &amp; Haviland, M. G. (2013). <a href="https://doi.org/10.1177/0013164412449831">Multidimensionality and structural coefficient bias in structural equation modeling: A bifactor perspective</a>. <em>Educational and Psychological Measurement, 73</em>(1), 5–26.</p>
+<p>Rodriguez, A., Reise, S. P., &amp; Haviland, M. G. (2016). <a href="https://doi.org/10.1037/met0000045">Evaluating bifactor models: Calculating and interpreting statistical indices</a>. <em>Psychological Methods, 21</em>(2), 137–150.</p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:ecv-items">
+<p>ECV calculations exclude all 29 items with negative posterior-mean specific slopes in the selected fit: 13 biology/medicine and 16 computer science/AI items. General slopes are positive by construction. Each excluded item is removed from both the general and specific sums, leaving 484 items. This is a post-estimation, data-dependent exclusion, not a requirement of standard ECV, which normally squares loadings regardless of sign. The model is not refitted; the original 513-item scores and rankings are unchanged. For comparison, the full-item general ECV is 35.56%, versus 33.79% after exclusion. The signs concern point estimates, not statistical significance.&#160;<a class="footnote-backref" href="#fnref:ecv-items" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:loadings">
+<p>Item slopes are posterior means conditional on the selected full-data fit. For general slope a and specific slope c, standardized logistic latent-response loadings are a / sqrt(a² + c² + π²/3) and c / sqrt(a² + c² + π²/3), respectively. This uses an orthogonal, unit-variance factor reference. The exponential of the random log general slope is taken before averaging. Subject and overall ECV use sums of squared standardized loadings, not ordinary averages of item IECVs. The notebook gives the equations and implementation.&#160;<a class="footnote-backref" href="#fnref:loadings" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:uncertainty">
+<p>These are point estimates; uncertainty intervals have not yet been calculated. Numerical integration stability checks address computational approximation, not sampling uncertainty. <a href="https://doi.org/10.1177/01466216221084215">Andersson and Luo (2022)</a> emphasize estimation error, particularly for item IECV. Their simulations used conventional factor models with sample sizes starting at 200 and do not validate intervals for this 29-LLM transposed estimator. A delete-one-LLM jackknife would involve 29 complete refits and would directly assess panel sensitivity. Interpreting resulting intervals as population sampling intervals additionally requires a defensible sampling target, attention to related model families, and stable fitting. Small sample size alone does not establish that a jackknife is preferable to a bootstrap; see <a href="https://doi.org/10.1080/00031305.1983.10483087">Efron and Gong (1983)</a>.&#160;<a class="footnote-backref" href="#fnref:uncertainty" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+</li>
+<li id="fn:puc">
+<p><a href="https://doi.org/10.1177/0013164412449831">Reise et al. (2013)</a> show that the implications of ECV depend on item-group structure. Here, 83.43% of pairs among the 484 retained items cross subject boundaries. Under the specified conventional bifactor structure, those pairs involve only the general factor, giving a percentage of uncontaminated correlations (PUC) of .8343. High PUC can reduce the consequences of multidimensionality for some unidimensional-model estimates. Neither low ECV nor high PUC alone establishes whether these general rankings are valid.&#160;<a class="footnote-backref" href="#fnref:puc" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+</li>
+<li id="fn:coordinates">
+<p>The estimator integrates over random item effects and estimates fixed, penalized LLM score coordinates. It uses the bifactor loading pattern but does not constrain the fitted score columns to be empirically orthogonal or to have unit variance. In the original 513-item fit, the general-to-specific score correlations range from −.832 to −.492. Consequently, 33.79% is a loading-based ECV diagnostic under the stated reference, not an exact partition of observed-response variance or empirical score variance across these LLMs. Conventional ECV thresholds do not transfer automatically to this implementation; shrinkage, model choice, and the small model panel also matter.&#160;<a class="footnote-backref" href="#fnref:coordinates" title="Jump back to footnote 5 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div><footer>Draft prepared October 29, 2026. Results describe the analyzed questions and conditional ECV convention.</footer></main></body></html>

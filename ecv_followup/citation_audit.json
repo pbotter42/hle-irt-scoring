@@ -1,0 +1,73 @@
+{
+  "date": "2026-10-29",
+  "sources": [
+    {
+      "doi": "10.1177/01466216221084215",
+      "metadata_error": "HTTP Error 429: Too Many Requests",
+      "title": [
+        "Impact of Sampling Variability When Estimating the Explained Common Variance"
+      ],
+      "journal": [
+        "Applied Psychological Measurement"
+      ],
+      "volume": "46",
+      "issue": "4",
+      "pages": "338-341",
+      "verification": "Earlier successful Crossref response and publisher full text; subsequent batch was rate limited."
+    },
+    {
+      "doi": "10.1037/met0000045",
+      "title": [
+        "Evaluating bifactor models: Calculating and interpreting statistical indices."
+      ],
+      "journal": [
+        "Psychological Methods"
+      ],
+      "volume": "21",
+      "issue": "2",
+      "pages": "137-150",
+      "published": {
+        "date-parts": [
+          [
+            2016,
+            6
+          ]
+        ]
+      }
+    },
+    {
+      "doi": "10.1177/0013164412449831",
+      "metadata_error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "doi": "10.1007/978-0-387-89976-3",
+      "metadata_error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "doi": "10.1080/15366367.2026.2720515",
+      "title": [
+        "Large Language Model Benchmarks as Measurement Systems: Psychometric Contributions and Eight Open Problems"
+      ],
+      "journal": [
+        "Measurement: Interdisciplinary Research and Perspectives"
+      ],
+      "volume": null,
+      "issue": null,
+      "pages": "1-25",
+      "published": {
+        "date-parts": [
+          [
+            2026,
+            8,
+            27
+          ]
+        ]
+      }
+    }
+  ],
+  "reading_notes": {
+    "ECV_cutoffs": "Andersson & Luo (2022), equations 2-3 and discussion; 0.70-0.80 described as suggested values, with estimation uncertainty required.",
+    "PUC": "Reise et al. (2013), author-hosted full text; high PUC can moderate bias, thresholds do not transfer automatically.",
+    "indices": "Rodriguez et al. (2016), indexed abstract and original ECV formulations; evaluate index quality beyond comparative model fit."
+  }
+}

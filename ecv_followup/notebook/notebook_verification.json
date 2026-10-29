@@ -1,0 +1,28 @@
+{
+  "date": "2026-10-29",
+  "code_cells": 11,
+  "figures": 5,
+  "all_cells_executed": true,
+  "execution_errors": 0,
+  "warnings": [],
+  "observed_answers": 14760,
+  "items": 484,
+  "overall_ECV": 0.3379331669364411,
+  "PUC": 0.8342829765754667,
+  "negative_specific_slopes_in_ECV": 0,
+  "excluded_items": 29,
+  "saved_ECV_values_reproduced": true,
+  "scope": "Saved full-data state, fresh item E-step at q17, slope conversion, ECV, score comparisons, five figures. No refitting.",
+  "notebook_sha256": "8974750360c118beb16d305c3b805e3a3256e61f5175692f09958ef2b7a218b5",
+  "fit_sha256": "3d56f382276cffdb5a795875da8d3321c710ae1a57f4ae379f52908b2183ff4f",
+  "versions": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scipy": "1.18.1",
+    "jax": "0.11.2",
+    "matplotlib": "3.11.2",
+    "nbformat": "5.11.1",
+    "nbclient": "0.11.0",
+    "ipykernel": "7.4.0"
+  }
+}

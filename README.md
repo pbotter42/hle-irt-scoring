@@ -7,6 +7,14 @@ The notebook explains the manuscript's code with short text, equations, canonica
 citations, one synthetic EM update, and saved full-data score and predictive comparisons.
 It imports Preston Botter's estimator unchanged. It does not refit the full HLE analysis.
 
+## ECV follow-up
+
+The [ECV article and materials](ecv_followup/article.md) extend the original scoring analysis. Open the [executed ECV notebook](ecv_followup/notebook/hle_ecv_walkthrough.ipynb) or its [HTML reading copy](ecv_followup/notebook/notebook.html). It reproduces item and subject ECV from the saved full-data bifactor fit, converts slopes to standardized loadings, and includes CFA/IRT-style diagrams.
+
+The model fit uses 29 LLMs and 513 questions. Reported ECV diagnostics retain 484 questions after the stated post-estimation sign exclusion. Overall general ECV is 33.79%; the specific loading exceeds the general loading for 304 of those 484 questions. These are conditional loading-based diagnostics under an orthogonal, unit-variance reference. The fixed-score estimator does not impose empirical score orthogonality. Full methodology, scope, and exclusions are documented in the article and notebook.
+
+All 11 notebook code cells were executed, with five embedded figures. [Validation](ecv_followup/notebook/validate_notebook.py) remains separate from the notebook; its [execution report](ecv_followup/notebook/notebook_verification.json) records the checked results and versions. No jackknife intervals are claimed.
+
 ## Setup
 
 Use Python 3.12. In this companion folder:

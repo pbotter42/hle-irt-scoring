@@ -1,0 +1,8 @@
+{
+  "retained_items": 484,
+  "excluded_items": 29,
+  "overall_ECV": 0.3379331669364411,
+  "exclusion_rule": "Exclude entire items with negative posterior-mean general or specific slopes before calculating reported ECV; original fit unchanged.",
+  "source_fit": "fit/selected_q11.npz",
+  "full_item_ECV_for_footnote": 0.35555336745291155
+}

@@ -1,0 +1,12 @@
+# Python 3.12. Exact tested versions are recorded in notebook_verification.json.
+numpy>=1.26,<3
+scipy>=1.13,<2
+pandas>=2.2,<4
+matplotlib>=3.9,<4
+jax[cpu]>=0.4.30,<0.12
+nbformat>=5.10,<6
+nbclient>=0.10,<0.12
+ipykernel>=6.29,<8
+markdown>=3.7,<4
+latex2mathml>=3.77,<4
+Pygments>=2.18,<3
